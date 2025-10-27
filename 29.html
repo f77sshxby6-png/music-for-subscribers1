@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для моих 29-ти 🎵</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+
+        .slide {
+            display: none;
+            text-align: center;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        h1 {
+            color: #e94560;
+            font-size: 2.8em;
+            margin-bottom: 25px;
+            text-shadow: 0 2px 10px rgba(233, 69, 96, 0.3);
+            background: linear-gradient(45deg, #e94560, #ff6b9d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        h2 {
+            color: #4cc9f0;
+            font-size: 2.2em;
+            margin: 25px 0;
+            text-shadow: 0 2px 8px rgba(76, 201, 240, 0.3);
+        }
+
+        p {
+            font-size: 1.3em;
+            line-height: 1.6;
+            color: #b8b8d1;
+            margin: 18px 0;
+        }
+
+        .music-notes {
+            font-size: 3em;
+            margin: 25px 0;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .stats, .thanks, .facts {
+            text-align: left;
+            margin: 25px 0;
+            padding: 0 20px;
+        }
+
+        .stat-item, .thank-item, .fact-item {
+            font-size: 1.2em;
+            margin: 15px 0;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            border-left: 4px solid #e94560;
+            transition: all 0.3s;
+        }
+
+        .stat-item:hover, .thank-item:hover, .fact-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateX(10px);
+        }
+
+        .subscribers-count {
+            font-size: 4em;
+            color: #4cc9f0;
+            font-weight: bold;
+            margin: 20px 0;
+            text-shadow: 0 0 20px rgba(76, 201, 240, 0.5);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #e94560, #ff6b9d);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2em;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 20px 10px;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4);
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(233, 69, 96, 0.6);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, #4cc9f0, #4361ee);
+            box-shadow: 0 5px 15px rgba(76, 201, 240, 0.4);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 8px 25px rgba(76, 201, 240, 0.6);
+        }
+
+        .final-message {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 2px solid rgba(76, 201, 240, 0.3);
+        }
+
+        .swipe-hint {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #b8b8d1;
+            font-size: 0.9em;
+            opacity: 0.7;
+        }
+
+        /* Анимации для мобильных жестов */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2em; }
+            h2 { font-size: 1.8em; }
+            p { font-size: 1.1em; }
+            .container { padding: 25px; }
+            .subscribers-count { font-size: 3em; }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 1.8em; }
+            .stat-item, .thank-item, .fact-item { font-size: 1em; }
+            .music-notes { font-size: 2.5em; }
+        }
+
+        /* Свайпы для мобильных */
+        .slide {
+            touch-action: pan-y;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Слайд 1: Приветствие -->
+        <div class="slide active" id="slide1">
+            <div class="music-notes">🎵🎶🎤</div>
+            <h1>Для моих 29-ти</h1>
+            <p>Тем, кто слушает, слышит и понимает</p>
+            <div class="music-notes">🎧🔥💫</div>
+            <button class="btn" onclick="nextSlide(2)">Вперед →</button>
+            <div class="swipe-hint">← Свайп для навигации →</div>
+        </div>
+
+        <!-- Слайд 2: Статистика -->
+        <div class="slide" id="slide2">
+            <h2>Нас уже</h2>
+            <div class="subscribers-count">29</div>
+            <p>не просто цифр, а настоящих людей</p>
+            <div class="stats">
+                <div class="stat-item">🎧 Вы слушаете мои мысли</div>
+                <div class="stat-item">💭 Вы слышите больше, чем слова</div>
+                <div class="stat-item">🔥 Вы вдохновляете продолжать</div>
+                <div class="stat-item">🌟 Вы - мое маленькое сообщество</div>
+            </div>
+            <button class="btn" onclick="nextSlide(3)">Далее →</button>
+        </div>
+
+        <!-- Слайд 3: Благодарность -->
+        <div class="slide" id="slide3">
+            <h2>Спасибо за</h2>
+            <div class="thanks">
+                <div class="thank-item">🎵 Каждый прослушанный трек</div>
+                <div class="thank-item">💬 Каждый оставленный комментарий</div>
+                <div class="thank-item">🔄 Каждую пересланную запись</div>
+                <div class="thank-item">❤️ Каждую проявленную поддержку</div>
+                <div class="thank-item">👂 Ваше внимание и время</div>
+            </div>
+            <div class="music-notes">🎶✨🎤</div>
+            <button class="btn" onclick="nextSlide(4)">Продолжить →</button>
+        </div>
+
+        <!-- Слайд 4: Музыкальные факты -->
+        <div class="slide" id="slide4">
+            <h2>Наша музыка</h2>
+            <div class="facts">
+                <div class="fact-item">📈 Растет вместе с нами</div>
+                <div class="fact-item">🎹 Становится глубже с каждым днем</div>
+                <div class="fact-item">🚀 Находит новые горизонты</div>
+                <div class="fact-item">💫 Отражает наши общие переживания</div>
+            </div>
+            <p>Вы помогаете музыке становиться лучше</p>
+            <button class="btn" onclick="nextSlide(5)">Узнать больше →</button>
+        </div>
+
+        <!-- Слайд 5: Будущее -->
+        <div class="slide" id="slide5">
+            <h2>Что дальше?</h2>
+            <div class="facts">
+                <div class="fact-item">🎵 Новые треки уже в работе</div>
+                <div class="fact-item">🎤 Больше откровенных текстов</div>
+                <div class="fact-item">🚀 Развитие нашего сообщества</div>
+                <div class="fact-item">💝 Музыка, которая трогает душу</div>
+            </div>
+            <div class="music-notes">🔥🎶⚡</div>
+            <button class="btn" onclick="nextSlide(6)">Финальное сообщение →</button>
+        </div>
+
+        <!-- Слайд 6: Финальное -->
+        <div class="slide" id="slide6">
+            <div class="final-message">
+                <h1>Оставайтесь на связи! 📱</h1>
+                <p>Ваша поддержка - это топливо для творчества</p>
+            </div>
+            <div class="music-notes">🎵💖🎶</div>
+            <p>29 человек могут изменить многое</p>
+            <p style="color: #4cc9f0; font-size: 1.1em;">Спасибо, что вы есть!</p>
+            
+            <div style="margin-top: 30px;">
+                <button class="btn" onclick="location.reload()">Смотреть сначала 🔄</button>
+                <button class="btn btn-secondary" onclick="shareMessage()">Поделиться ↗</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 6;
+
+        function nextSlide(slideNumber) {
+            document.getElementById('slide' + currentSlide).classList.remove('active');
+            currentSlide = slideNumber;
+            document.getElementById('slide' + currentSlide).classList.add('active');
+        }
+
+        // Обработчики свайпов для мобильных
+        let startX = 0;
+        let endX = 0;
+
+        document.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+        });
+
+        document.addEventListener('touchend', (e) => {
+            endX = e.changedTouches[0].clientX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const diff = startX - endX;
+            const minSwipe = 50; // минимальная дистанция свайпа
+
+            if (Math.abs(diff) > minSwipe) {
+                if (diff > 0 && currentSlide < totalSlides) {
+                    // Свайп влево - следующий слайд
+                    nextSlide(currentSlide + 1);
+                } else if (diff < 0 && currentSlide > 1) {
+                    // Свайп вправо - предыдущий слайд
+                    nextSlide(currentSlide - 1);
+                }
+            }
+        }
+
+        // Обработчики клавиатуры
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft' && currentSlide > 1) {
+                nextSlide(currentSlide - 1);
+            } else if (e.key === 'ArrowRight' && currentSlide < totalSlides) {
+                nextSlide(currentSlide + 1);
+            }
+        });
+
+        function shareMessage() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Для моих 29-ти 🎵',
+                    text: 'Посмотри это музыкальное послание!',
+                    url: window.location.href
+                });
+            } else {
+                alert('Скопируйте ссылку и поделитесь с друзьями!');
+            }
+        }
+
+        // Автопрокрутка первого слайда
+        setTimeout(() => {
+            const musicNotes = document.querySelectorAll('.music-notes');
+            musicNotes.forEach(note => {
+                note.style.animation = 'none';
+                setTimeout(() => {
+                    note.style.animation = '';
+                }, 10);
+            });
+        }, 3000);
+    </script>
+</body>
+</html>
